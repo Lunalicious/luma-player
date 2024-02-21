@@ -1,0 +1,14 @@
+{
+    "include": [
+        "node_modules/vue",
+        "src/**/*.ts",
+        "src/**/*.vue",
+        "types.d.ts"
+    ],
+    "compilerOptions": {
+        "target": "esnext",
+        "module": "esnext",
+        "strict": true,
+        "moduleResolution": "node"
+    }
+}

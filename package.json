@@ -1,0 +1,57 @@
+{
+    "name": "luma-player",
+    "version": "0.9.0",
+    "description": "Custom Multimedia Player for Vue",
+    "author": "Lunalicious",
+    "license": "MIT",
+    "private": false,
+    "main": "dist/luma-player.umd.js",
+    "module": "dist/luma-player.esm.js",
+    "type": "module",
+    "exports": {
+        ".": {
+            "import": "./dist/luma-player.esm.js",
+            "require": "./dist/main.umd.js"
+        },
+        "./dist/style.css": "./dist/style.css"
+    },
+    "types": "types.d.ts",
+    "files": [
+        "dist/*",
+        "src/*",
+        "README.md",
+        "LICENSE"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://gitlab.com/moonfox-projects/lumaplayer.git"
+    },
+    "keywords": [
+        "vue",
+        "video",
+        "audio",
+        "multimedia",
+        "player"
+    ],
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "lint": "npx eslint --ext .js,.vue 'src/'"
+    },
+    "peerDependencies": {
+        "vue": ">=2.7.0"
+    },
+    "dependencies": {
+        "@vueuse/core": "^10.7.2",
+        "sass": "^1.70.0",
+        "vue-demi": "^0.14.7"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-vue": "^5.0.3",
+        "eslint": "^8.56.0",
+        "eslint-plugin-vue": "^9.21.1",
+        "vite": "^5.0.12",
+        "vue": "^3.4.15"
+    }
+}
