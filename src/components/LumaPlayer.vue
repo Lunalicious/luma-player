@@ -43,7 +43,7 @@
             v-if="isAudio || !hideControls"
             ref="lumaControls"
             :animate="animate"
-            :class="{ 'hide': idle && playing }"
+            :class="{ 'hide': idle && playing && isVideo }"
             :currentTime="currentTime"
             :display-captions="selectedTrack !== -1"
             :duration="duration"
