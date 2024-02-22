@@ -1,16 +1,28 @@
-import { usePreferredReducedMotion } from "@vueuse/core";
-import { ref, computed } from "vue-demi";
+import {usePreferredReducedMotion, watchImmediate} from "@vueuse/core";
+import { ref, onMounted } from "vue-demi";
 
-const isMobile = computed(() => window.navigator.userAgent.toLowerCase().includes("mobi"));
-const isIos = ref(/iPad|iPhone|iPod/.test(navigator.userAgent));
-const isMobileIos = computed(() => isMobile.value && isIos.value);
+export const useEnvironment = () => {
+    const isMobile = ref(false);
+    const isIos = ref(false);
+    const isMobileIos = ref(false);
+    const animate = ref(false);
 
-const motion = usePreferredReducedMotion();
-const animate = computed(() => motion.value !== "reduce");
+    onMounted(() => {
+        const ua = navigator.userAgent;
+        isMobile.value = ua.toLowerCase().includes("mobi");
+        isIos.value = /iPad|iPhone|iPod/.test(ua);
+        isMobileIos.value = isMobile.value && isIos.value;
 
-export const useEnvironment = () => ({
-    isMobile,
-    isIos,
-    isMobileIos,
-    animate,
-});
+        const motion = usePreferredReducedMotion();
+        watchImmediate(motion, (value) => {
+            animate.value = value !== "reduce";
+        });
+    });
+
+    return {
+        isMobile,
+        isIos,
+        isMobileIos,
+        animate,
+    };
+};
