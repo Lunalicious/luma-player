@@ -24,5 +24,8 @@ coverage
 *.sln
 *.sw?
 
-public/test-files
+public
 TODO.md
+src/App.vue
+src/main.js
+index.html
