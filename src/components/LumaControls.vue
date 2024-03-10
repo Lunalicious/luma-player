@@ -31,7 +31,9 @@
                 />
             </transition>
         </div>
-        <div class="time-display" :aria-label="currentTimeDisplay + 'of' + totalTimeDisplay + 'played'">{{ currentTimeDisplay + " / " + totalTimeDisplay }}</div>
+        <div class="time-display" :aria-label="currentTimeDisplay + 'of' + totalTimeDisplay + 'played'">
+            {{ currentTimeDisplay + " / " + totalTimeDisplay }}
+        </div>
         <luma-slider
             role="presentation"
             :max="duration"
@@ -75,7 +77,7 @@ export default {
 import { computed, ref, toRefs, watch } from "vue-demi";
 import LumaButton from "@/components/controls/LumaButton.vue";
 import LumaSlider from "@/components/controls/LumaSlider.vue";
-import { useElementHover, useFocusWithin } from "@vueuse/core";
+import { noop, useElementHover, useFocusWithin } from "@vueuse/core";
 import { useTimeDisplay } from "@/composables/useTimeDisplay.js";
 
 const emit = defineEmits(["update:playing", "update:current-time", "update:volume", "update:muted", "update:fullscreen", "update:display-captions"]);
@@ -136,8 +138,7 @@ const volumeHover = useElementHover(volumeWrapper);
 // Here we have a reactivity bug from vue
 const { focused } = useFocusWithin(volumeWrapper);
 // The current workaround is an empty watcher on the resulting ref
-watch(focused, () => {
-});
+watch(focused, noop);
 
 const showVolumeSlider = computed(() => volumeHover.value || focused.value);
 </script>

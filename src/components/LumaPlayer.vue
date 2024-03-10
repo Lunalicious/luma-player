@@ -1,5 +1,10 @@
 <template>
-    <div ref="lumaPlayerWrapper" class="luma-player-wrapper__internal" @keydown="handleShortcuts">
+    <div
+        ref="lumaPlayerWrapper"
+        class="luma-player-wrapper__internal"
+        :class="{ 'disabled': disabled }"
+        @keydown="disabled ? noop : handleShortcuts"
+    >
         <img
             v-if="posterImage && isAudio"
             :alt="posterImageDescription"
@@ -90,6 +95,7 @@ import { getMediaType } from "@/util/mediaType";
 import {
     clamp,
     computedAsync,
+    noop,
     useFullscreen,
     useIdle,
     useMediaControls,
@@ -150,6 +156,10 @@ const props = defineProps({
     shortcuts: {
         type: Object,
         default: {},
+    },
+    disabled: {
+        type: Boolean,
+        default: false,
     },
     Controls: {
         type: Object,
@@ -312,6 +322,11 @@ useDisableNativeControls(lumaPlayer);
     min-width: 0;
     min-height: var(--luma-controls-height);
     box-sizing: border-box;
+
+    &.disabled {
+        filter: saturate(0.7) brightness(0.7);
+        pointer-events: none;
+    }
 
     .luma-player {
         width: 100%;

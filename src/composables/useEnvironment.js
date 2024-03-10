@@ -1,4 +1,4 @@
-import {usePreferredReducedMotion, watchImmediate} from "@vueuse/core";
+import { usePreferredReducedMotion, watchImmediate } from "@vueuse/core";
 import { ref, onMounted } from "vue-demi";
 
 export const useEnvironment = () => {
