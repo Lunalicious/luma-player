@@ -1,6 +1,6 @@
 {
     "name": "luma-player",
-    "version": "0.9.2",
+    "version": "0.9.3",
     "description": "Custom Multimedia Player for Vue",
     "author": "Lunalicious",
     "license": "MIT",
