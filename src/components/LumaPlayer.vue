@@ -3,7 +3,7 @@
         ref="lumaPlayerWrapper"
         class="luma-player-wrapper__internal"
         :class="{ 'disabled': disabled }"
-        @keydown="disabled ? noop : handleShortcuts"
+        @keydown="disabled ? noop() : handleShortcuts($event)"
     >
         <img
             v-if="posterImage && isAudio"
