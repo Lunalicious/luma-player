@@ -84,16 +84,16 @@ $thumb-d: v-bind(cssSize);
 }
 
 [type='range'] {
-    &, &::-webkit-slider-thumb {
-        -webkit-appearance: none;
-    }
-
     margin: 0;
     padding: 0;
     width: $track-w;
     height: $thumb-d;
     background: transparent;
     font: 1em/1 arial, sans-serif;
+
+    &, &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+    }
 
     &::-webkit-slider-runnable-track {
         @include track;

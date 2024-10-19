@@ -1,7 +1,8 @@
 import { computed } from "vue-demi";
 
 const icons = import.meta.glob("../icons/*.svg", {
-    as: "raw",
+    query: "?raw",
+    import: "default",
     eager: true,
 });
 
