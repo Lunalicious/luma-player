@@ -20,6 +20,7 @@
             :loop="loop"
             :muted="muted || autoplay"
             class="luma-player"
+            :class="{'idle-playing': idlePlaying}"
             preload="metadata"
             @click.prevent="updatePlaying(!playing)"
             @dblclick.prevent="isVideo && toggleFullscreen()"
@@ -36,19 +37,21 @@
             </template>
         </component>
 
-        <img
-            v-if="posterImage && isVideo && !playing && currentTime < 0.2"
-            :alt="posterImageDescription"
-            :src="posterImage"
-            class="luma-player-poster"
-        >
+        <transition :name="(animate && 'fade').toString()">
+            <img
+                v-if="posterImage && isVideo && !playing && currentTime < 0.2"
+                :alt="posterImageDescription"
+                :src="posterImage"
+                class="luma-player-poster"
+            >
+        </transition>
 
         <component
             :is="Controls"
             v-if="isAudio || !hideControls"
             ref="lumaControls"
             :animate="animate"
-            :class="{ 'hide': idle && playing && isVideo }"
+            :class="{ 'hide': idlePlaying }"
             :currentTime="currentTime"
             :display-captions="selectedTrack !== -1"
             :duration="duration"
@@ -171,6 +174,8 @@ const { src, track, type, shortcuts } = toRefs(props);
 
 const { isMobile, isMobileIos, animate } = useEnvironment();
 const { idle, reset: resetIdleState } = useIdle(3000);
+
+const idlePlaying = computed(() => idle.value && playing.value && isVideo.value);
 
 const srcString = computed(() => src.value instanceof Blob ? useObjectUrl(src).value : src.value);
 
@@ -332,6 +337,10 @@ useDisableNativeControls(lumaPlayer);
 
     .luma-player {
         width: 100%;
+        
+        &.idle-playing {
+            cursor: none;
+        }
     }
 
     .luma-player-controls {
@@ -368,14 +377,26 @@ useDisableNativeControls(lumaPlayer);
     }
 }
 
+$animation-duration: 0.25s;
+
 .fade-grow-enter-active,
 .fade-grow-leave-active {
-    transition: all 0.25s ease;
+    transition: all $animation-duration ease;
 }
 
 .fade-grow-enter-from,
 .fade-grow-leave-to {
     opacity: 0;
     transform: scale(3);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity $animation-duration ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
 }
 </style>
