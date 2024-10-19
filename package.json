@@ -38,7 +38,7 @@
         "dev": "vite",
         "build": "vite build",
         "preview": "vite preview",
-        "lint": "npx eslint --ext .js,.vue 'src/'"
+        "lint": "npx eslint 'src/'"
     },
     "peerDependencies": {
         "vue": ">=2.7.0"
