@@ -70,7 +70,7 @@
         />
 
         <slot v-if="isVideo" :animate="animate" :playing="playing" name="main-icon">
-            <transition :name="animate && 'fade-grow'">
+            <transition :name="(animate && 'fade-grow').toString()">
                 <luma-icon
                     v-if="!playing"
                     role="presentation"
@@ -322,6 +322,8 @@ useDisableNativeControls(lumaPlayer);
     min-width: 0;
     min-height: var(--luma-controls-height);
     box-sizing: border-box;
+    max-width: 100%;
+    max-height: 100%;
 
     &.disabled {
         filter: saturate(0.7) brightness(0.7);
